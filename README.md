@@ -1,69 +1,117 @@
-# React + TypeScript + Vite
+# React Component Library
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project contains reusable UI components built with **React**, **TypeScript**, and **TailwindCSS**.  
+Components include an **InputField** with validation states and a **DataTable** with sorting and selection.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📂 Folder Structure
+src/<br>
+│── components/<br>
+│ ├── InputField.tsx<br>
+│ ├── DataTable.tsx<br>
+│── App.tsx<br>
+│── main.tsx<br>
+│── index.css<br>
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ⚡ Setup Instructions
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Talish1234/Input_and_datatable.git
+   cd Input_and_datatable
+   ```
+   
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+   
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🛠 Components
+**✅ InputField**
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Features:
+
+Text input with label, placeholder, helperText, errorMessage
+
+- States: disabled, invalid, loading
+- Variants: filled, outlined, ghost
+- Sizes: sm, md, lg
+- Optional: clear button, password toggle
+- Optional: support for light & dark theme
+
+**Usage:**
+```bash
+import { InputField } from './Components/InputField';
+
+export default function App() {
+  return (
+    <InputField
+      label="Username"
+      placeholder="Enter your username"
+      helperText="Must be at least 6 characters"
+      errorMessage="Invalid username"
+      variant="outlined"
+      size="md"
+    />
+  );
+}
+
 ```
+---
+**🔹 DataTable**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+A reusable table component with:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Sorting by column
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Row selection (single/multiple)
+- Loading & empty states
+- Fully typed with generics
+  
+**Usage:**
+```bash
+import { DataTable } from './Components/DataTable';
+
+const columns = [
+  { key: 'name', title: 'Name', dataIndex: 'name', sortable: true },
+  { key: 'email', title: 'Email', dataIndex: 'email' },
+];
+
+const data = [
+  { name: 'John Doe', email: 'john@example.com' },
+  { name: 'Jane Smith', email: 'jane@example.com' },
+];
+
+export default function App() {
+  return (
+    <DataTable
+      data={data}
+      columns={columns}
+      selectable
+      onRowSelect={(rows) => console.log(rows)}
+    />
+  );
+}
+
 ```
+---
+
+## 🧠 Approach
+
+- **Component-driven design**: Each feature (Input, DataTable) is built as an isolated, reusable component.
+- **Type safety with generics**: The DataTable is generic (<T>) so it works with any data shape.
+- **TailwindCSS utilities**: Used for responsive, consistent styling with dark mode support.
+- **Priority handling**: In InputField, icons (loading > clear > password toggle) follow a priority order to avoid overlap.
+- **Stateful enhancements**: Row selection, sorting, and controlled input values are managed via React hooks (useState, useMemo).
+
+## 🌙 Dark Mode
+
+Tailwind’s dark: classes are used. To enable dark mode, add dark-theme="dark" on <html>, <body> or parent element.
