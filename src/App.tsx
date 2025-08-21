@@ -23,6 +23,7 @@ const sampleData: User[] = [
 function App() {
   const [email,setEmail] = useState<string>('');
   const [selected, setSelected] = useState<User[]>([]);
+  console.log(selected);
   return (
     <div className='px-4 py-6 flex flex-col gap-6'>
     <InputField
