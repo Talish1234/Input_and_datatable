@@ -114,4 +114,4 @@ export default function App() {
 
 ## 🌙 Dark Mode
 
-Tailwind’s dark: classes are used. To enable dark mode, add dark-theme="dark" on <html>, <body> or parent element.
+Tailwind’s dark: classes are used. To enable dark mode, add dark-theme="dark" on parent element.
